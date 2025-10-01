@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask_sqlalchemy import SQLAlchemy
 import os
 import json
 from datetime import datetime
@@ -7,53 +8,89 @@ import re
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
 
-# Sample blog data (in production, use a database)
-BLOG_POSTS = [
-    {
-        'id': 1,
-        'title': 'Cotswolds Cycling Adventure',
-        'excerpt': 'A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
-        'content': 'Full blog post content would go here...',
-        'date': '2025-01-15',
-        'category': 'cycling',
-        'emoji': '🚴‍♂️',
-        'youtube_url': None,
-        'youtube_id': None
-    },
-    {
-        'id': 2,
-        'title': 'Best Cake Stops in Yorkshire',
-        'excerpt': 'Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
-        'content': 'Full blog post content would go here...',
-        'date': '2025-01-10',
-        'category': 'food',
-        'emoji': '🍰',
-        'youtube_url': None,
-        'youtube_id': None
-    },
-    {
-        'id': 3,
-        'title': 'Essential Gear for British Weather',
-        'excerpt': 'A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
-        'content': 'Full blog post content would go here...',
-        'date': '2025-01-08',
-        'category': 'gear',
-        'emoji': '⚙️',
-        'youtube_url': None,
-        'youtube_id': None
-    },
-    {
-        'id': 4,
-        'title': 'Scotland\'s North Coast 500',
-        'excerpt': 'An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
-        'content': 'Full blog post content would go here...',
-        'date': '2025-01-05',
-        'category': 'travel',
-        'emoji': '🗺️',
-        'youtube_url': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        'youtube_id': 'dQw4w9WgXcQ'
-    }
-]
+# Database configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# Database Models
+class BlogPost(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    excerpt = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    emoji = db.Column(db.String(10), default='📝')
+    date = db.Column(db.String(20), nullable=False)
+    youtube_url = db.Column(db.String(500))
+    youtube_id = db.Column(db.String(50))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'excerpt': self.excerpt,
+            'content': self.content,
+            'category': self.category,
+            'emoji': self.emoji,
+            'date': self.date,
+            'youtube_url': self.youtube_url,
+            'youtube_id': self.youtube_id
+        }
+
+# Initialize database and create sample data
+def init_db():
+    """Initialize database with sample data if empty"""
+    with app.app_context():
+        db.create_all()
+        
+        # Check if we already have posts
+        if BlogPost.query.count() == 0:
+            # Add sample posts
+            sample_posts = [
+                BlogPost(
+                    title='Cotswolds Cycling Adventure',
+                    excerpt='A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
+                    content='Full blog post content would go here...',
+                    category='cycling',
+                    emoji='🚴‍♂️',
+                    date='2025-01-15'
+                ),
+                BlogPost(
+                    title='Best Cake Stops in Yorkshire',
+                    excerpt='Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
+                    content='Full blog post content would go here...',
+                    category='food',
+                    emoji='🍰',
+                    date='2025-01-10'
+                ),
+                BlogPost(
+                    title='Essential Gear for British Weather',
+                    excerpt='A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
+                    content='Full blog post content would go here...',
+                    category='gear',
+                    emoji='⚙️',
+                    date='2025-01-08'
+                ),
+                BlogPost(
+                    title='Scotland\'s North Coast 500',
+                    excerpt='An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
+                    content='Full blog post content would go here...',
+                    category='travel',
+                    emoji='🗺️',
+                    date='2025-01-05',
+                    youtube_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                    youtube_id='dQw4w9WgXcQ'
+                )
+            ]
+            
+            for post in sample_posts:
+                db.session.add(post)
+            
+            db.session.commit()
+            print("Database initialized with sample data")
 
 def extract_youtube_id(url):
     """Extract YouTube video ID from URL"""
@@ -71,25 +108,19 @@ def get_admin_password():
 @app.route('/')
 def index():
     """Main blog page"""
-    category_filter = request.args.get('category', 'all')
-    
-    if category_filter == 'all':
-        posts = BLOG_POSTS
-    else:
-        posts = [post for post in BLOG_POSTS if post['category'] == category_filter]
-    
-    return render_template('index.html', posts=posts, current_category=category_filter)
+    # Get all posts from database, ordered by creation date (newest first)
+    posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+    posts_dict = [post.to_dict() for post in posts]
+    return render_template('index.html', posts=posts_dict)
 
 @app.route('/post/<int:post_id>')
 def view_post(post_id):
     """View individual blog post"""
-    post = next((p for p in BLOG_POSTS if p['id'] == post_id), None)
-    if not post:
-        return "Post not found", 404
-    
-    return render_template('post.html', post=post)
+    post = BlogPost.query.get_or_404(post_id)
+    return render_template('post.html', post=post.to_dict())
 
 @app.route('/admin')
+@app.route('/secret-admin-access')
 def admin_login():
     """Admin login page"""
     if session.get('admin_authenticated'):
@@ -114,7 +145,9 @@ def admin_panel():
     if not session.get('admin_authenticated'):
         return redirect(url_for('admin_login'))
     
-    return render_template('admin_panel.html', posts=BLOG_POSTS)
+    posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+    posts_dict = [post.to_dict() for post in posts]
+    return render_template('admin_panel.html', posts=posts_dict)
 
 @app.route('/admin/create', methods=['POST'])
 def create_post():
@@ -124,27 +157,37 @@ def create_post():
     
     data = request.get_json() if request.is_json else request.form
     
+    # Validate required fields
+    if not all([data.get('title'), data.get('excerpt'), data.get('content'), data.get('category')]):
+        posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+        posts_dict = [post.to_dict() for post in posts]
+        return render_template('admin_panel.html', posts=posts_dict, error='All fields are required')
+    
     # Extract YouTube ID if URL provided
     youtube_id = extract_youtube_id(data.get('youtube_url'))
     
-    new_post = {
-        'id': max([p['id'] for p in BLOG_POSTS], default=0) + 1,
-        'title': data.get('title'),
-        'excerpt': data.get('excerpt'),
-        'content': data.get('content'),
-        'category': data.get('category'),
-        'emoji': data.get('emoji', '📝'),
-        'date': datetime.now().strftime('%Y-%m-%d'),
-        'youtube_url': data.get('youtube_url'),
-        'youtube_id': youtube_id
-    }
+    # Create new blog post
+    new_post = BlogPost(
+        title=data.get('title'),
+        excerpt=data.get('excerpt'),
+        content=data.get('content'),
+        category=data.get('category'),
+        emoji=data.get('emoji', '📝'),
+        date=datetime.now().strftime('%Y-%m-%d'),
+        youtube_url=data.get('youtube_url'),
+        youtube_id=youtube_id
+    )
     
-    BLOG_POSTS.insert(0, new_post)
+    # Save to database
+    db.session.add(new_post)
+    db.session.commit()
     
     if request.is_json:
-        return jsonify({'success': True, 'post': new_post})
+        return jsonify({'success': True, 'post': new_post.to_dict()})
     else:
-        return redirect(url_for('admin_panel'))
+        posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+        posts_dict = [post.to_dict() for post in posts]
+        return render_template('admin_panel.html', posts=posts_dict, success='Post created successfully!')
 
 @app.route('/admin/delete/<int:post_id>', methods=['POST'])
 def delete_post(post_id):
@@ -152,10 +195,25 @@ def delete_post(post_id):
     if not session.get('admin_authenticated'):
         return jsonify({'error': 'Unauthorized'}), 401
     
-    global BLOG_POSTS
-    BLOG_POSTS = [p for p in BLOG_POSTS if p['id'] != post_id]
+    # Find and delete the post
+    post = BlogPost.query.get(post_id)
+    if post:
+        db.session.delete(post)
+        db.session.commit()
+        message = 'Post deleted successfully!'
+        success = True
+    else:
+        message = 'Post not found!'
+        success = False
     
-    return redirect(url_for('admin_panel'))
+    # Get updated posts list
+    posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+    posts_dict = [post.to_dict() for post in posts]
+    
+    if success:
+        return render_template('admin_panel.html', posts=posts_dict, success=message)
+    else:
+        return render_template('admin_panel.html', posts=posts_dict, error=message)
 
 @app.route('/admin/logout')
 def admin_logout():
@@ -163,25 +221,7 @@ def admin_logout():
     session.pop('admin_authenticated', None)
     return redirect(url_for('index'))
 
-@app.route('/contact', methods=['POST'])
-def contact():
-    """Handle contact form submission"""
-    data = request.get_json() if request.is_json else request.form
-    
-    # In production, you'd send email or save to database
-    contact_data = {
-        'name': data.get('name'),
-        'email': data.get('email'),
-        'message': data.get('message'),
-        'timestamp': datetime.now().isoformat()
-    }
-    
-    print(f"Contact form submission: {contact_data}")
-    
-    if request.is_json:
-        return jsonify({'success': True, 'message': 'Message sent successfully'})
-    else:
-        return redirect(url_for('index'))
+
 
 @app.route('/api/posts')
 def api_posts():
@@ -189,11 +229,13 @@ def api_posts():
     category_filter = request.args.get('type', 'all')
     
     if category_filter == 'all' or category_filter == 'blog':
-        posts = BLOG_POSTS
+        posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
     else:
-        posts = [post for post in BLOG_POSTS if post['category'] == category_filter]
+        posts = BlogPost.query.filter_by(category=category_filter).order_by(BlogPost.created_at.desc()).all()
     
-    return jsonify(posts)
+    posts_dict = [post.to_dict() for post in posts]
+    return jsonify(posts_dict)
 
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))

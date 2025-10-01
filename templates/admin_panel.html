@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
 {% block title %}Admin Panel - Great British Bike Off{% endblock %}
 
@@ -13,6 +13,15 @@
         <div class="admin-content">
             <div class="create-post-section">
                 <h3>Create New Post</h3>
+                
+                {% if success %}
+                <div class="success-message">{{ success }}</div>
+                {% endif %}
+                
+                {% if error %}
+                <div class="error-message">{{ error }}</div>
+                {% endif %}
+                
                 <form method="POST" action="{{ url_for('create_post') }}" class="post-form">
                     <div class="form-group">
                         <label for="title">Title</label>

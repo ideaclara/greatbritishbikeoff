@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Great British Bike Off - Cycling & Food Adventures{% endblock %}</title>
+    <title>{% block title %}Admin - Great British Bike Off{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <h1 class="logo">🚴‍♂️ Great British Bike Off</h1>
+                <h1 class="logo">🚴‍♂️ Great British Bike Off - Admin</h1>
                 <ul class="nav-menu">
-                    <li><a href="{{ url_for('index') }}">Blog</a></li>
+                    <li><a href="{{ url_for('index') }}">View Blog</a></li>
+                    {% if session.get('admin_authenticated') %}
+                    <li><a href="{{ url_for('admin_panel') }}">Admin Panel</a></li>
+                    <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
