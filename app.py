@@ -43,54 +43,65 @@ class BlogPost(db.Model):
 # Initialize database and create sample data
 def init_db():
     """Initialize database with sample data if empty"""
-    with app.app_context():
-        db.create_all()
-        
-        # Check if we already have posts
-        if BlogPost.query.count() == 0:
-            # Add sample posts
-            sample_posts = [
-                BlogPost(
-                    title='Cotswolds Cycling Adventure',
-                    excerpt='A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
-                    content='Full blog post content would go here...',
-                    category='cycling',
-                    emoji='🚴‍♂️',
-                    date='2025-01-15'
-                ),
-                BlogPost(
-                    title='Best Cake Stops in Yorkshire',
-                    excerpt='Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
-                    content='Full blog post content would go here...',
-                    category='food',
-                    emoji='🍰',
-                    date='2025-01-10'
-                ),
-                BlogPost(
-                    title='Essential Gear for British Weather',
-                    excerpt='A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
-                    content='Full blog post content would go here...',
-                    category='gear',
-                    emoji='⚙️',
-                    date='2025-01-08'
-                ),
-                BlogPost(
-                    title='Scotland\'s North Coast 500',
-                    excerpt='An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
-                    content='Full blog post content would go here...',
-                    category='travel',
-                    emoji='🗺️',
-                    date='2025-01-05',
-                    youtube_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                    youtube_id='dQw4w9WgXcQ'
-                )
-            ]
+    try:
+        with app.app_context():
+            # Create all tables
+            db.create_all()
+            print("Database tables created successfully")
             
-            for post in sample_posts:
-                db.session.add(post)
-            
-            db.session.commit()
-            print("Database initialized with sample data")
+            # Check if we already have posts
+            if BlogPost.query.count() == 0:
+                print("No existing posts found, creating sample data...")
+                # Add sample posts
+                sample_posts = [
+                    BlogPost(
+                        title='Cotswolds Cycling Adventure',
+                        excerpt='A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
+                        content='Full blog post content would go here...',
+                        category='cycling',
+                        emoji='🚴‍♂️',
+                        date='2025-01-15'
+                    ),
+                    BlogPost(
+                        title='Best Cake Stops in Yorkshire',
+                        excerpt='Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
+                        content='Full blog post content would go here...',
+                        category='food',
+                        emoji='🍰',
+                        date='2025-01-10'
+                    ),
+                    BlogPost(
+                        title='Essential Gear for British Weather',
+                        excerpt='A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
+                        content='Full blog post content would go here...',
+                        category='gear',
+                        emoji='⚙️',
+                        date='2025-01-08'
+                    ),
+                    BlogPost(
+                        title='Scotland\'s North Coast 500',
+                        excerpt='An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
+                        content='Full blog post content would go here...',
+                        category='travel',
+                        emoji='🗺️',
+                        date='2025-01-05',
+                        youtube_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        youtube_id='dQw4w9WgXcQ'
+                    )
+                ]
+                
+                for post in sample_posts:
+                    db.session.add(post)
+                
+                db.session.commit()
+                print("Database initialized with sample data")
+            else:
+                print(f"Database already has {BlogPost.query.count()} posts")
+                
+    except Exception as e:
+        print(f"Error initializing database: {e}")
+        # Don't fail the app startup, just log the error
+        pass
 
 def extract_youtube_id(url):
     """Extract YouTube video ID from URL"""
@@ -108,10 +119,17 @@ def get_admin_password():
 @app.route('/')
 def index():
     """Main blog page"""
-    # Get all posts from database, ordered by creation date (newest first)
-    posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
-    posts_dict = [post.to_dict() for post in posts]
-    return render_template('index.html', posts=posts_dict)
+    try:
+        # Get all posts from database, ordered by creation date (newest first)
+        posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+        posts_dict = [post.to_dict() for post in posts]
+        return render_template('index.html', posts=posts_dict)
+    except Exception as e:
+        print(f"Error loading posts: {e}")
+        # Try to initialize database if it fails
+        init_db()
+        # Return empty posts list as fallback
+        return render_template('index.html', posts=[])
 
 @app.route('/post/<int:post_id>')
 def view_post(post_id):
@@ -236,6 +254,8 @@ def api_posts():
     posts_dict = [post.to_dict() for post in posts]
     return jsonify(posts_dict)
 
+# Initialize database when app starts
+init_db()
+
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
