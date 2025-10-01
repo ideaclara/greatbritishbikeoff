@@ -9,7 +9,12 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
+database_url = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
+# Fix for PostgreSQL URL format (Render uses postgresql://, SQLAlchemy expects postgresql+psycopg2://)
+if database_url.startswith('postgresql://'):
+    database_url = database_url.replace('postgresql://', 'postgresql+psycopg2://', 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -50,8 +55,12 @@ def init_db():
             print("Database tables created successfully")
             
             # Check if we already have posts
-            if BlogPost.query.count() == 0:
-                print("No existing posts found, creating sample data...")
+            post_count = BlogPost.query.count()
+            print(f"Found {post_count} existing posts in database")
+            
+            # Only add sample data if database is completely empty AND we're not in production
+            if post_count == 0 and not os.environ.get('DATABASE_URL'):
+                print("Local development detected - creating sample data...")
                 # Add sample posts
                 sample_posts = [
                     BlogPost(
@@ -94,9 +103,11 @@ def init_db():
                     db.session.add(post)
                 
                 db.session.commit()
-                print("Database initialized with sample data")
+                print("Sample data created for local development")
+            elif post_count == 0:
+                print("Production database is empty - ready for your first post!")
             else:
-                print(f"Database already has {BlogPost.query.count()} posts")
+                print("Existing posts preserved")
                 
     except Exception as e:
         print(f"Error initializing database: {e}")

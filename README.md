@@ -80,12 +80,21 @@ git push origin main
    - **Start Command**: `gunicorn app:app`
    - **Instance Type**: `Free` (or paid for better performance)
 
-### Step 3: Set Environment Variables
+### Step 3: Add PostgreSQL Database
+1. **In Render dashboard**, go to your web service
+2. **Click "Environment"** tab
+3. **Add PostgreSQL database**:
+   - Click **"New PostgreSQL"**
+   - Name: `greatbritishbikeoff-db`
+   - Render will automatically set `DATABASE_URL`
+
+### Step 4: Set Environment Variables
 In Render dashboard, add these environment variables:
 - **Key**: `ADMIN_PASSWORD` **Value**: `your-secure-password`
 - **Key**: `SECRET_KEY` **Value**: `your-random-secret-key`
+- **Key**: `DATABASE_URL` **Value**: `(automatically set by PostgreSQL addon)`
 
-### Step 4: Deploy
+### Step 5: Deploy
 - Click **Create Web Service**
 - Render will automatically build and deploy your app
 - Your blog will be live at: `https://great-british-bike-off.onrender.com`
