@@ -114,12 +114,17 @@ body {
 }
 
 /* Grid Layouts */
-.routes-grid,
-.food-grid,
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    margin-top: 2rem;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
     margin-top: 2rem;
 }
 
@@ -236,5 +241,106 @@ footer {
     .food-grid,
     .blog-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* 
+Category Cards */
+.category-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.category-card h3 {
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.category-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* About Section */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+/* Blog Post Cards - Enhanced */
+.blog-grid .card {
+    max-width: 100%;
+}
+
+.blog-grid .card-content {
+    padding: 2rem;
+}
+
+.blog-grid .card-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.blog-grid .card-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.read-more {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.read-more:hover {
+    color: #1e40af;
+}
+
+/* Filter Active State */
+.category-card.active {
+    background: linear-gradient(135deg, #dbeafe, #93c5fd);
+    transform: translateY(-3px);
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+        text-align: left;
     }
 }

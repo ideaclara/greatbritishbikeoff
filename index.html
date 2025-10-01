@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Great British Bike Off - Cycling & Food Adventures</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -13,9 +15,9 @@
                 <h1 class="logo">🚴‍♂️ Great British Bike Off</h1>
                 <ul class="nav-menu">
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#routes">Routes</a></li>
-                    <li><a href="#food">Food</a></li>
-                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#blog">Latest Posts</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -25,27 +27,9 @@
     <main>
         <section id="home" class="hero">
             <div class="hero-content">
-                <h2>Pedal, Eat, Repeat</h2>
-                <p>Discover the best cycling routes and local food gems across Britain</p>
-                <button class="cta-button" onclick="loadBlogPosts()">Explore Adventures</button>
-            </div>
-        </section>
-
-        <section id="routes" class="section">
-            <div class="container">
-                <h2>Featured Routes</h2>
-                <div class="routes-grid" id="routes-grid">
-                    <!-- Routes will be loaded dynamically -->
-                </div>
-            </div>
-        </section>
-
-        <section id="food" class="section">
-            <div class="container">
-                <h2>Food Discoveries</h2>
-                <div class="food-grid" id="food-grid">
-                    <!-- Food posts will be loaded dynamically -->
-                </div>
+                <h2>Great British Bike Off</h2>
+                <p>Adventures in cycling and culinary discoveries across Britain</p>
+                <button class="cta-button" onclick="loadBlogPosts()">Read Latest Posts</button>
             </div>
         </section>
 
@@ -54,6 +38,44 @@
                 <h2>Latest Blog Posts</h2>
                 <div class="blog-grid" id="blog-grid">
                     <!-- Blog posts will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="categories" class="section">
+            <div class="container">
+                <h2>Browse by Category</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterPosts('cycling')">
+                        <div class="category-icon">🚴‍♂️</div>
+                        <h3>Cycling Adventures</h3>
+                        <p>Routes, tips, and cycling experiences</p>
+                    </div>
+                    <div class="category-card" onclick="filterPosts('food')">
+                        <div class="category-icon">🍽️</div>
+                        <h3>Food & Drink</h3>
+                        <p>Pub stops, cafes, and local cuisine</p>
+                    </div>
+                    <div class="category-card" onclick="filterPosts('travel')">
+                        <div class="category-icon">🗺️</div>
+                        <h3>Travel Stories</h3>
+                        <p>Adventures and discoveries</p>
+                    </div>
+                    <div class="category-card" onclick="filterPosts('gear')">
+                        <div class="category-icon">⚙️</div>
+                        <h3>Gear & Tips</h3>
+                        <p>Equipment reviews and advice</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2>About the Blog</h2>
+                <div class="about-content">
+                    <p>Welcome to Great British Bike Off, where cycling meets culinary adventure! I'm passionate about exploring Britain's beautiful countryside on two wheels, discovering hidden gems, charming villages, and the best food stops along the way.</p>
+                    <p>From challenging hill climbs in the Peak District to leisurely rides through the Cotswolds, each journey is an opportunity to experience the rich tapestry of British culture, landscape, and cuisine. Join me as I share routes, restaurant recommendations, and the stories that make each ride memorable.</p>
                 </div>
             </div>
         </section>
@@ -79,4 +101,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

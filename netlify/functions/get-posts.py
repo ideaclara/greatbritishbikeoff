@@ -17,26 +17,50 @@ def handler(event, context):
                 {
                     'id': 1,
                     'title': 'Cotswolds Cycling Adventure',
-                    'excerpt': 'A perfect weekend exploring the rolling hills and charming villages of the Cotswolds.',
+                    'excerpt': 'A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
                     'date': '2025-01-15',
-                    'category': 'Adventure',
+                    'category': 'Cycling',
                     'emoji': '🚴‍♂️'
                 },
                 {
                     'id': 2,
                     'title': 'Best Cake Stops in Yorkshire',
-                    'excerpt': 'Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes.',
+                    'excerpt': 'Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
                     'date': '2025-01-10',
                     'category': 'Food',
                     'emoji': '🍰'
                 },
                 {
                     'id': 3,
-                    'title': 'Winter Cycling Tips',
-                    'excerpt': 'Essential gear and techniques for safe and enjoyable winter cycling adventures.',
+                    'title': 'Essential Gear for British Weather',
+                    'excerpt': 'A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
+                    'date': '2025-01-08',
+                    'category': 'Gear',
+                    'emoji': '⚙️'
+                },
+                {
+                    'id': 4,
+                    'title': 'Scotland\'s North Coast 500',
+                    'excerpt': 'An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
                     'date': '2025-01-05',
-                    'category': 'Tips',
-                    'emoji': '❄️'
+                    'category': 'Travel',
+                    'emoji': '🗺️'
+                },
+                {
+                    'id': 5,
+                    'title': 'Pub Lunch Perfection in the Lake District',
+                    'excerpt': 'The best traditional pubs for hearty meals after conquering the challenging climbs of Cumbria\'s beautiful fells.',
+                    'date': '2025-01-03',
+                    'category': 'Food',
+                    'emoji': '🍺'
+                },
+                {
+                    'id': 6,
+                    'title': 'Cycling Through History: Hadrian\'s Wall',
+                    'excerpt': 'Following ancient Roman footsteps along one of Britain\'s most historic cycling routes, with stunning Northumberland landscapes.',
+                    'date': '2025-01-01',
+                    'category': 'Travel',
+                    'emoji': '🏛️'
                 }
             ],
             'route': [
