@@ -1,5 +1,2 @@
-# Protect admin panel with Netlify Identity
-/admin.html  /admin.html  200!  Role=admin
-
 # API redirects
 /api/*  /.netlify/functions/:splat  200
