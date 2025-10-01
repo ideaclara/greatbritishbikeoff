@@ -4,10 +4,20 @@ const API_BASE_URL = '/.netlify/functions';
 // Get password from environment or use default
 async function getAdminPassword() {
     try {
+        console.log('Fetching admin password from API...');
         const response = await fetch(`${API_BASE_URL}/get-config`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const config = await response.json();
+        console.log('Config received:', { usingEnvVar: config.usingEnvVar });
+        
         return config.adminPassword || 'bikeoff2025';
     } catch (error) {
+        console.error('Error fetching admin password:', error);
+        console.log('Using fallback password');
         return 'bikeoff2025'; // Fallback password
     }
 }
