@@ -1,111 +1,132 @@
 # Great British Bike Off
 
-A cycling and food blogging website showcasing the best cycling routes and food discoveries across Britain.
+A cycling and food blog built with Python Flask, featuring a complete admin panel and YouTube integration.
 
-## Architecture
+## 🚀 Features
 
-- **Frontend**: Static HTML, CSS, and JavaScript
-- **Backend**: Python serverless functions running on AWS Lambda via Netlify
-- **Hosting**: Netlify static site hosting with serverless functions
-- **Deployment**: Automated deployment from GitHub
+- **Python Flask Backend**: Server-side rendering with Jinja2 templates
+- **Admin Panel**: Create, view, and delete blog posts
+- **YouTube Integration**: Automatic video embedding and thumbnails
+- **Category Filtering**: Cycling, Food, Travel, Gear categories
+- **Responsive Design**: Works on all devices
+- **Secure Authentication**: Environment variable password protection
 
-## Features
+## 🛠 Local Development
 
-- 🚴‍♂️ Featured cycling routes with difficulty ratings
-- 🍽️ Food discovery posts with ratings and locations
-- 📝 Blog posts about cycling adventures
-- 📧 Contact form with serverless backend
-- 📱 Responsive design for all devices
+### Prerequisites
+- Python 3.9+
+- pip
 
-## Local Development
-
-1. Install Netlify CLI:
+### Setup
+1. **Install dependencies**:
    ```bash
-   npm install -g netlify-cli
+   pip install -r requirements.txt
    ```
 
-2. Start local development server:
+2. **Set environment variables** (optional):
    ```bash
-   netlify dev
+   export ADMIN_PASSWORD="your-secure-password"
+   export SECRET_KEY="your-secret-key"
    ```
 
-3. Open your browser to `http://localhost:8888`
-
-## Deployment
-
-### Option 1: Deploy to Netlify via GitHub
-
-1. Push this repository to GitHub
-2. Connect your GitHub repository to Netlify
-3. Netlify will automatically deploy on every push to main branch
-
-### Option 2: Manual Deploy
-
-1. Install Netlify CLI and login:
+3. **Run the application**:
    ```bash
-   npm install -g netlify-cli
-   netlify login
+   python app.py
    ```
 
-2. Deploy:
-   ```bash
-   netlify deploy --prod
-   ```
+4. **Access the site**:
+   - Main site: http://localhost:5000
+   - Admin panel: http://localhost:5000/admin
+   - Default password: `bikeoff2025`
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-great-british-bike-off/
-├── index.html              # Main HTML file
-├── styles.css              # CSS styles
-├── script.js               # Frontend JavaScript
-├── netlify/
-│   └── functions/
-│       ├── get-posts.py    # API endpoint for blog posts/routes/food
-│       └── contact.py      # Contact form handler
-├── netlify.toml            # Netlify configuration
-├── requirements.txt        # Python dependencies
-└── README.md              # This file
+greatbritishbikeoff/
+├── app.py                 # Main Flask application
+├── templates/             # Jinja2 templates
+│   ├── base.html         # Base template
+│   ├── index.html        # Main blog page
+│   ├── post.html         # Individual post view
+│   ├── admin_login.html  # Admin login
+│   └── admin_panel.html  # Admin dashboard
+├── static/
+│   └── css/
+│       └── styles.css    # All CSS styles
+├── requirements.txt      # Python dependencies
+└── Procfile              # For deployment
 ```
 
-## API Endpoints
+## 🌐 Deployment to Render
 
-- `GET /.netlify/functions/get-posts?type=blog` - Get blog posts
-- `GET /.netlify/functions/get-posts?type=route` - Get cycling routes
-- `GET /.netlify/functions/get-posts?type=food` - Get food posts
-- `POST /.netlify/functions/contact` - Submit contact form
+This project is configured for easy deployment to Render via GitHub:
 
-## Customization
+### Step 1: Push to GitHub
+```bash
+git add .
+git commit -m "Ready for Render deployment"
+git push origin main
+```
 
-### Adding New Content
+### Step 2: Deploy on Render
+1. **Go to [Render.com](https://render.com)** and sign up/login
+2. **Connect GitHub** account
+3. **Create New Web Service**
+4. **Select your repository**: `greatbritishbikeoff`
+5. **Configure deployment**:
+   - **Name**: `great-british-bike-off`
+   - **Environment**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn app:app`
+   - **Instance Type**: `Free` (or paid for better performance)
 
-Edit the sample data in `netlify/functions/get-posts.py` to add your own:
-- Blog posts
-- Cycling routes
-- Food discoveries
+### Step 3: Set Environment Variables
+In Render dashboard, add these environment variables:
+- **Key**: `ADMIN_PASSWORD` **Value**: `your-secure-password`
+- **Key**: `SECRET_KEY` **Value**: `your-random-secret-key`
 
-### Styling
+### Step 4: Deploy
+- Click **Create Web Service**
+- Render will automatically build and deploy your app
+- Your blog will be live at: `https://great-british-bike-off.onrender.com`
 
-Modify `styles.css` to customize the appearance:
-- Colors are defined using CSS custom properties
-- Responsive breakpoints are at 768px
-- Grid layouts automatically adapt to screen size
+## 🔧 Environment Variables
 
-### Functionality
+Set these in Render dashboard:
 
-Extend `script.js` to add new features:
-- Search functionality
-- Filtering by category/difficulty
-- User authentication
-- Comments system
+- `ADMIN_PASSWORD`: Your secure admin password (required)
+- `SECRET_KEY`: Flask secret key for sessions (required)
+- `PORT`: Port number (automatically set by Render)
 
-## Environment Variables
+## 🚴‍♂️ Usage
 
-For production, you may want to add:
-- `DATABASE_URL` - Database connection string
-- `EMAIL_API_KEY` - Email service API key
-- `ANALYTICS_ID` - Google Analytics tracking ID
+1. **Visit the main site** to see blog posts
+2. **Filter by category** using the navigation buttons
+3. **Click "Read More"** to view full posts
+4. **Access admin panel** at `/admin`
+5. **Create new posts** with YouTube integration
+6. **Manage existing posts** from the admin dashboard
 
-## License
+## 🔒 Security
 
-MIT License - feel free to use this project as a starting point for your own cycling blog!
+- Password-protected admin panel
+- Environment variable configuration
+- Session-based authentication
+- CSRF protection ready (can be added)
+- Input validation and sanitization
+
+## 🎯 Features
+
+### Blog Management
+- **Create Posts**: Rich text content with YouTube integration
+- **Category System**: Cycling, Food, Travel, Gear categories
+- **YouTube Videos**: Automatic thumbnail generation and embedding
+- **Responsive Design**: Works perfectly on mobile and desktop
+
+### Admin Panel
+- **Secure Login**: Environment variable password protection
+- **Post Management**: Create, view, and delete posts
+- **YouTube Integration**: Paste YouTube URLs for automatic embedding
+- **Session Management**: Secure admin authentication
+
+This Flask blog is production-ready and optimized for Render deployment! 🚀

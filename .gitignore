@@ -1,7 +1,3 @@
-# Netlify
-.netlify/
-dist/
-
 # Python
 __pycache__/
 *.py[cod]
@@ -48,5 +44,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Node modules (if you add any)
-node_modules/
+# Flask instance folder
+instance/
+
+# Render build cache
+.render-buildpacks-cache/

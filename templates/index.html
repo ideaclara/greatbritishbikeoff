@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h2>Great British Bike Off</h2>
+        <p>Adventures in cycling and culinary discoveries across Britain</p>
+        <a href="#blog" class="cta-button">Read Latest Posts</a>
+    </div>
+</section>
+
+<section id="blog" class="section">
+    <div class="container">
+        <h2>
+            {% if current_category == 'all' %}
+                Latest Blog Posts
+            {% else %}
+                {{ current_category.title() }} Posts
+            {% endif %}
+        </h2>
+        
+        <div class="categories-filter">
+            <a href="{{ url_for('index') }}" class="filter-btn {% if current_category == 'all' %}active{% endif %}">All</a>
+            <a href="{{ url_for('index', category='cycling') }}" class="filter-btn {% if current_category == 'cycling' %}active{% endif %}">🚴‍♂️ Cycling</a>
+            <a href="{{ url_for('index', category='food') }}" class="filter-btn {% if current_category == 'food' %}active{% endif %}">🍽️ Food</a>
+            <a href="{{ url_for('index', category='travel') }}" class="filter-btn {% if current_category == 'travel' %}active{% endif %}">🗺️ Travel</a>
+            <a href="{{ url_for('index', category='gear') }}" class="filter-btn {% if current_category == 'gear' %}active{% endif %}">⚙️ Gear</a>
+        </div>
+        
+        <div class="blog-grid">
+            {% for post in posts %}
+            <div class="card">
+                {% if post.youtube_id %}
+                <div class="card-image youtube-thumbnail" style="background-image: url('https://img.youtube.com/vi/{{ post.youtube_id }}/maxresdefault.jpg'); background-size: cover; background-position: center;">
+                    <div class="play-button">▶️</div>
+                </div>
+                {% else %}
+                <div class="card-image">{{ post.emoji }}</div>
+                {% endif %}
+                
+                <div class="card-content">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.excerpt }}</p>
+                    
+                    {% if post.youtube_url %}
+                    <p class="youtube-link">📹 <a href="{{ post.youtube_url }}" target="_blank">Watch on YouTube</a></p>
+                    {% endif %}
+                    
+                    <a href="{{ url_for('view_post', post_id=post.id) }}" class="read-more">Read More →</a>
+                    
+                    <div class="card-meta">
+                        <span>📅 {{ post.date }}</span>
+                        <span>🏷️ {{ post.category.title() }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if not posts %}
+        <div class="no-posts">
+            <p>No posts found for this category. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section id="about" class="section">
+    <div class="container">
+        <h2>About the Blog</h2>
+        <div class="about-content">
+            <p>Welcome to Great British Bike Off, where cycling meets culinary adventure! I'm passionate about exploring Britain's beautiful countryside on two wheels, discovering hidden gems, charming villages, and the best food stops along the way.</p>
+            <p>From challenging hill climbs in the Peak District to leisurely rides through the Cotswolds, each journey is an opportunity to experience the rich tapestry of British culture, landscape, and cuisine.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <div class="container">
+        <h2>Get In Touch</h2>
+        <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

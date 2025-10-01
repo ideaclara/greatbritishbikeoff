@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - Great British Bike Off{% endblock %}
+
+{% block content %}
+<section class="post-hero">
+    <div class="container">
+        <div class="post-header">
+            <h1>{{ post.title }}</h1>
+            <div class="post-meta">
+                <span>📅 {{ post.date }}</span>
+                <span>🏷️ {{ post.category.title() }}</span>
+                <span>{{ post.emoji }}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="post-content">
+    <div class="container">
+        <article class="post-article">
+            {% if post.youtube_id %}
+            <div class="youtube-embed">
+                <iframe width="100%" height="400" 
+                        src="https://www.youtube.com/embed/{{ post.youtube_id }}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            {% endif %}
+            
+            <div class="post-text">
+                <p class="post-excerpt">{{ post.excerpt }}</p>
+                <div class="post-body">
+                    {{ post.content|safe }}
+                </div>
+            </div>
+        </article>
+        
+        <div class="post-navigation">
+            <a href="{{ url_for('index') }}" class="btn-secondary">← Back to Blog</a>
+            <a href="{{ url_for('index', category=post.category) }}" class="btn-secondary">More {{ post.category.title() }} Posts</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

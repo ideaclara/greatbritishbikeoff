@@ -484,4 +484,151 @@ e Integration */
         padding: 10px 16px;
         font-size: 0.9rem;
     }
+}/* Pytho
+n Flask Template Styles */
+
+/* Category Filter Buttons */
+.categories-filter {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e3a8a;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.filter-btn:hover {
+    background: #93c5fd;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #1e3a8a;
+    color: white;
+    border-color: #93c5fd;
+}
+
+/* Post Hero Section */
+.post-hero {
+    background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(59, 130, 246, 0.85));
+    color: white;
+    padding: 150px 0 80px;
+    text-align: center;
+}
+
+.post-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 1.1rem;
+}
+
+/* Post Content */
+.post-content {
+    padding: 80px 0;
+}
+
+.post-article {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.youtube-embed {
+    margin-bottom: 2rem;
+}
+
+.youtube-embed iframe {
+    border-radius: 10px;
+}
+
+.post-excerpt {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.post-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    gap: 1rem;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+    color: white;
+}
+
+/* No Posts Message */
+.no-posts {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+    .categories-filter {
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .post-header h1 {
+        font-size: 2rem;
+    }
+    
+    .post-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .post-article {
+        padding: 2rem 1.5rem;
+    }
+    
+    .post-navigation {
+        flex-direction: column;
+    }
 }

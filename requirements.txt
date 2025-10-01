@@ -1,2 +1,2 @@
-# Python dependencies for Netlify Functions
-# These will be automatically installed when deploying to Netlify
+Flask==3.0.0
+gunicorn==21.2.0
