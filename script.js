@@ -38,11 +38,17 @@ async function loadBlogPosts(filter = 'all') {
         
         blogGrid.innerHTML = filteredPosts.map(post => `
             <div class="card">
-                <div class="card-image">${post.emoji || '📝'}</div>
+                ${post.youtubeId ? 
+                    `<div class="card-image youtube-thumbnail" style="background-image: url('https://img.youtube.com/vi/${post.youtubeId}/maxresdefault.jpg'); background-size: cover; background-position: center;">
+                        <div class="play-button">▶️</div>
+                    </div>` :
+                    `<div class="card-image">${post.emoji || '📝'}</div>`
+                }
                 <div class="card-content">
                     <h3>${post.title}</h3>
                     <p>${post.excerpt}</p>
-                    <a href="#" class="read-more">Read More →</a>
+                    ${post.youtubeId ? `<p class="youtube-link">📹 <a href="${post.youtubeUrl}" target="_blank">Watch on YouTube</a></p>` : ''}
+                    <a href="#" class="read-more" onclick="openPost(${post.id})">Read More →</a>
                     <div class="card-meta">
                         <span>📅 ${new Date(post.date).toLocaleDateString()}</span>
                         <span>🏷️ ${post.category}</span>
@@ -185,4 +191,47 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
+});
+// Open
+ full post (placeholder for future implementation)
+function openPost(postId) {
+    alert(`Full post view would open here for post ID: ${postId}. This could be implemented as a modal or separate page.`);
+}
+
+// Load posts from localStorage if available (for demo purposes)
+function loadLocalPosts() {
+    const localPosts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+    if (localPosts.length > 0) {
+        const blogGrid = document.getElementById('blog-grid');
+        const existingContent = blogGrid.innerHTML;
+        
+        const localPostsHtml = localPosts.map(post => `
+            <div class="card local-post">
+                ${post.youtubeId ? 
+                    `<div class="card-image youtube-thumbnail" style="background-image: url('https://img.youtube.com/vi/${post.youtubeId}/maxresdefault.jpg'); background-size: cover; background-position: center;">
+                        <div class="play-button">▶️</div>
+                    </div>` :
+                    `<div class="card-image">${post.emoji || '📝'}</div>`
+                }
+                <div class="card-content">
+                    <h3>${post.title}</h3>
+                    <p>${post.excerpt}</p>
+                    ${post.youtubeId ? `<p class="youtube-link">📹 <a href="${post.youtubeUrl}" target="_blank">Watch on YouTube</a></p>` : ''}
+                    <a href="#" class="read-more" onclick="openPost(${post.id})">Read More →</a>
+                    <div class="card-meta">
+                        <span>📅 ${new Date(post.date).toLocaleDateString()}</span>
+                        <span>🏷️ ${post.category}</span>
+                        <span class="local-badge">✏️ Draft</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        blogGrid.innerHTML = localPostsHtml + existingContent;
+    }
+}
+
+// Load local posts when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(loadLocalPosts, 1000); // Load after API posts
 });
