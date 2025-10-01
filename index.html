@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great British Bike Off - Cycling & Food Adventures</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo">🚴‍♂️ Great British Bike Off</h1>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#routes">Routes</a></li>
+                    <li><a href="#food">Food</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Pedal, Eat, Repeat</h2>
+                <p>Discover the best cycling routes and local food gems across Britain</p>
+                <button class="cta-button" onclick="loadBlogPosts()">Explore Adventures</button>
+            </div>
+        </section>
+
+        <section id="routes" class="section">
+            <div class="container">
+                <h2>Featured Routes</h2>
+                <div class="routes-grid" id="routes-grid">
+                    <!-- Routes will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="food" class="section">
+            <div class="container">
+                <h2>Food Discoveries</h2>
+                <div class="food-grid" id="food-grid">
+                    <!-- Food posts will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="section">
+            <div class="container">
+                <h2>Latest Blog Posts</h2>
+                <div class="blog-grid" id="blog-grid">
+                    <!-- Blog posts will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Get In Touch</h2>
+                <form id="contact-form" class="contact-form">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                    <input type="email" id="email" placeholder="Your Email" required>
+                    <textarea id="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Great British Bike Off. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Python dependencies for Netlify Functions
+# These will be automatically installed when deploying to Netlify
