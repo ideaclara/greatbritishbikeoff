@@ -8,7 +8,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, #F9F7F1 0%, #C8E7F5 100%);
     position: relative;
 }
 
@@ -44,7 +44,7 @@ body::before {
 
 /* Header */
 .navbar {
-    background: #014DAC;
+    background: #10559A;
     color: white;
     padding: 1rem 0;
     position: fixed;
@@ -80,12 +80,12 @@ body::before {
 }
 
 .nav-menu a:hover {
-    color: #A349A4;
+    color: #F6D2E0;
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(1, 77, 172, 0.85), rgba(163, 73, 164, 0.85));
+    background: linear-gradient(rgba(16, 85, 154, 0.85), rgba(246, 210, 224, 0.85));
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -126,8 +126,8 @@ body::before {
 }
 
 .cta-button {
-    background: #A349A4;
-    color: white;
+    background: #F6D2E0;
+    color: #10559A;
     padding: 12px 30px;
     border: none;
     border-radius: 5px;
@@ -138,33 +138,33 @@ body::before {
 }
 
 .cta-button:hover {
-    background: #8a3d8b;
+    background: #e8c1d1;
 }
 
 /* Sections */
 .section {
     padding: 80px 0;
     position: relative;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(249, 247, 241, 0.85);
     backdrop-filter: blur(10px);
 }
 
 .section:nth-child(even) {
-    background: rgba(248, 250, 252, 0.9);
+    background: rgba(200, 231, 245, 0.9);
 }
 
 /* Blog Main Section - appears at top */
 .blog-main {
     padding-top: 120px; /* Account for fixed navbar */
     padding-bottom: 80px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(249, 247, 241, 0.95);
 }
 
 .section h2 {
     text-align: center;
     margin-bottom: 3rem;
     font-size: 2.5rem;
-    color: #014DAC;
+    color: #10559A;
 }
 
 /* Grid Layouts */
@@ -183,25 +183,25 @@ body::before {
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(249, 247, 241, 0.95);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(200, 231, 245, 0.3);
 }
 
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(249, 247, 241, 0.98);
 }
 
 .card-image {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, #e6f2ff, #A349A4);
+    background: linear-gradient(135deg, #C8E7F5, #F6D2E0);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,7 +213,7 @@ body::before {
 }
 
 .card-content h3 {
-    color: #014DAC;
+    color: #10559A;
     margin-bottom: 0.5rem;
 }
 
@@ -251,7 +251,7 @@ body::before {
 }
 
 .contact-form button {
-    background: #014DAC;
+    background: #10559A;
     color: white;
     padding: 12px 30px;
     border: none;
@@ -262,12 +262,12 @@ body::before {
 }
 
 .contact-form button:hover {
-    background: #013a8a;
+    background: #0d4682;
 }
 
 /* Footer */
 footer {
-    background: #014DAC;
+    background: #10559A;
     color: white;
     text-align: center;
     padding: 2rem 0;
@@ -305,7 +305,7 @@ footer {
 /* 
 Category Cards */
 .category-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(249, 247, 241, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
@@ -313,13 +313,13 @@ Category Cards */
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(200, 231, 245, 0.3);
 }
 
 .category-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(249, 247, 241, 0.95);
 }
 
 .category-icon {
@@ -328,7 +328,7 @@ Category Cards */
 }
 
 .category-card h3 {
-    color: #014DAC;
+    color: #10559A;
     margin-bottom: 0.5rem;
     font-size: 1.3rem;
 }
@@ -374,19 +374,25 @@ Category Cards */
 }
 
 .read-more {
-    color: #A349A4;
+    color: #F6D2E0;
+    background: #10559A;
+    padding: 8px 16px;
+    border-radius: 20px;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    display: inline-block;
 }
 
 .read-more:hover {
-    color: #014DAC;
+    background: #0d4682;
+    color: white;
+    transform: translateY(-1px);
 }
 
 /* Filter Active State */
 .category-card.active {
-    background: linear-gradient(135deg, #e6f2ff, #A349A4);
+    background: linear-gradient(135deg, #C8E7F5, #F6D2E0);
     transform: translateY(-3px);
 }
 
@@ -404,11 +410,22 @@ Category Cards */
         font-size: 1rem;
         text-align: left;
     }
-}/* YouTub
-e Integration */
+}
+
+/* YouTube Integration */
+.youtube-link-wrapper {
+    display: block;
+    text-decoration: none;
+}
+
 .youtube-thumbnail {
     position: relative;
     cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.youtube-link-wrapper:hover .youtube-thumbnail {
+    transform: scale(1.02);
 }
 
 .play-button {
@@ -416,14 +433,22 @@ e Integration */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     transition: transform 0.3s;
+    background: rgba(16, 85, 154, 0.8);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.youtube-thumbnail:hover .play-button {
+.youtube-link-wrapper:hover .play-button {
     transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(16, 85, 154, 0.9);
 }
 
 .youtube-link {
@@ -504,8 +529,8 @@ n Flask Template Styles */
 }
 
 .filter-btn {
-    background: rgba(255, 255, 255, 0.9);
-    color: #014DAC;
+    background: rgba(249, 247, 241, 0.9);
+    color: #10559A;
     padding: 8px 16px;
     border-radius: 20px;
     text-decoration: none;
@@ -515,15 +540,15 @@ n Flask Template Styles */
 }
 
 .filter-btn:hover {
-    background: #A349A4;
-    color: white;
+    background: #F6D2E0;
+    color: #10559A;
     transform: translateY(-2px);
 }
 
 .filter-btn.active {
-    background: #014DAC;
+    background: #10559A;
     color: white;
-    border-color: #A349A4;
+    border-color: #F6D2E0;
 }
 
 /* Post Hero Section */
