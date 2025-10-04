@@ -8,7 +8,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #F9F7F1 0%, #C8E7F5 100%);
+    background: linear-gradient(135deg, #97e7f5 0%, #26b170 100%);
     position: relative;
 }
 
@@ -21,7 +21,7 @@ body::before {
     height: 100%;
     opacity: 0.03;
     z-index: -1;
-    background-image: 
+    background-image:
         /* Diagonal crosses */
         linear-gradient(45deg, #fecaca 0%, transparent 20%, transparent 80%, #fecaca 100%),
         linear-gradient(-45deg, #fecaca 0%, transparent 20%, transparent 80%, #fecaca 100%),
@@ -44,7 +44,7 @@ body::before {
 
 /* Header */
 .navbar {
-    background: #10559A;
+    background: #01377d;
     color: white;
     padding: 1rem 0;
     position: fixed;
@@ -80,12 +80,12 @@ body::before {
 }
 
 .nav-menu a:hover {
-    color: #F6D2E0;
+    color: #7ed348;
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(16, 85, 154, 0.85), rgba(246, 210, 224, 0.85));
+    background: linear-gradient(rgba(1, 55, 125, 0.85), rgba(0, 157, 209, 0.85));
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -105,7 +105,7 @@ body::before {
     width: 100%;
     height: 100%;
     opacity: 0.1;
-    background-image: 
+    background-image:
         /* Union Jack pattern for hero */
         linear-gradient(45deg, #fecaca 0%, transparent 15%, transparent 85%, #fecaca 100%),
         linear-gradient(-45deg, #fecaca 0%, transparent 15%, transparent 85%, #fecaca 100%),
@@ -126,8 +126,8 @@ body::before {
 }
 
 .cta-button {
-    background: #F6D2E0;
-    color: #10559A;
+    background: #7ed348;
+    color: white;
     padding: 12px 30px;
     border: none;
     border-radius: 5px;
@@ -138,33 +138,34 @@ body::before {
 }
 
 .cta-button:hover {
-    background: #e8c1d1;
+    background: #26b170;
 }
 
 /* Sections */
 .section {
     padding: 80px 0;
     position: relative;
-    background: rgba(249, 247, 241, 0.85);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
 }
 
 .section:nth-child(even) {
-    background: rgba(200, 231, 245, 0.9);
+    background: rgba(151, 231, 245, 0.2);
 }
 
 /* Blog Main Section - appears at top */
 .blog-main {
-    padding-top: 120px; /* Account for fixed navbar */
+    padding-top: 120px;
+    /* Account for fixed navbar */
     padding-bottom: 80px;
-    background: rgba(249, 247, 241, 0.95);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .section h2 {
     text-align: center;
     margin-bottom: 3rem;
     font-size: 2.5rem;
-    color: #10559A;
+    color: #01377d;
 }
 
 /* Grid Layouts */
@@ -183,25 +184,25 @@ body::before {
 }
 
 .card {
-    background: rgba(249, 247, 241, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(200, 231, 245, 0.3);
+    border: 1px solid rgba(151, 231, 245, 0.3);
 }
 
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    background: rgba(249, 247, 241, 0.98);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 .card-image {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, #C8E7F5, #F6D2E0);
+    background: linear-gradient(135deg, #97e7f5, #009dd1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,7 +214,7 @@ body::before {
 }
 
 .card-content h3 {
-    color: #10559A;
+    color: #01377d;
     margin-bottom: 0.5rem;
 }
 
@@ -251,7 +252,7 @@ body::before {
 }
 
 .contact-form button {
-    background: #10559A;
+    background: #009dd1;
     color: white;
     padding: 12px 30px;
     border: none;
@@ -262,12 +263,12 @@ body::before {
 }
 
 .contact-form button:hover {
-    background: #0d4682;
+    background: #26b170;
 }
 
 /* Footer */
 footer {
-    background: #10559A;
+    background: #01377d;
     color: white;
     text-align: center;
     padding: 2rem 0;
@@ -305,7 +306,7 @@ footer {
 /* 
 Category Cards */
 .category-card {
-    background: rgba(249, 247, 241, 0.9);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
@@ -313,13 +314,13 @@ Category Cards */
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(200, 231, 245, 0.3);
+    border: 1px solid rgba(151, 231, 245, 0.3);
 }
 
 .category-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-    background: rgba(249, 247, 241, 0.95);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .category-icon {
@@ -328,7 +329,7 @@ Category Cards */
 }
 
 .category-card h3 {
-    color: #10559A;
+    color: #01377d;
     margin-bottom: 0.5rem;
     font-size: 1.3rem;
 }
@@ -374,8 +375,8 @@ Category Cards */
 }
 
 .read-more {
-    color: #F6D2E0;
-    background: #10559A;
+    color: white;
+    background: #009dd1;
     padding: 8px 16px;
     border-radius: 20px;
     text-decoration: none;
@@ -385,14 +386,14 @@ Category Cards */
 }
 
 .read-more:hover {
-    background: #0d4682;
+    background: #26b170;
     color: white;
     transform: translateY(-1px);
 }
 
 /* Filter Active State */
 .category-card.active {
-    background: linear-gradient(135deg, #C8E7F5, #F6D2E0);
+    background: linear-gradient(135deg, #97e7f5, #7ed348);
     transform: translateY(-3px);
 }
 
@@ -437,7 +438,7 @@ Category Cards */
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     transition: transform 0.3s;
-    background: rgba(16, 85, 154, 0.8);
+    background: rgba(1, 55, 125, 0.8);
     border-radius: 50%;
     width: 70px;
     height: 70px;
@@ -448,7 +449,7 @@ Category Cards */
 
 .youtube-link-wrapper:hover .play-button {
     transform: translate(-50%, -50%) scale(1.1);
-    background: rgba(16, 85, 154, 0.9);
+    background: rgba(0, 157, 209, 0.9);
 }
 
 .youtube-link {
@@ -509,14 +510,16 @@ Category Cards */
     .play-button {
         font-size: 2rem;
     }
-    
+
     .admin-link {
         bottom: 10px;
         right: 10px;
         padding: 10px 16px;
         font-size: 0.9rem;
     }
-}/* Pytho
+}
+
+/* Pytho
 n Flask Template Styles */
 
 /* Category Filter Buttons */
@@ -529,8 +532,8 @@ n Flask Template Styles */
 }
 
 .filter-btn {
-    background: rgba(249, 247, 241, 0.9);
-    color: #10559A;
+    background: rgba(255, 255, 255, 0.9);
+    color: #01377d;
     padding: 8px 16px;
     border-radius: 20px;
     text-decoration: none;
@@ -540,15 +543,15 @@ n Flask Template Styles */
 }
 
 .filter-btn:hover {
-    background: #F6D2E0;
-    color: #10559A;
+    background: #7ed348;
+    color: white;
     transform: translateY(-2px);
 }
 
 .filter-btn.active {
-    background: #10559A;
+    background: #009dd1;
     color: white;
-    border-color: #F6D2E0;
+    border-color: #7ed348;
 }
 
 /* Post Hero Section */
@@ -641,29 +644,31 @@ n Flask Template Styles */
     .categories-filter {
         gap: 0.5rem;
     }
-    
+
     .filter-btn {
         padding: 6px 12px;
         font-size: 0.9rem;
     }
-    
+
     .post-header h1 {
         font-size: 2rem;
     }
-    
+
     .post-meta {
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .post-article {
         padding: 2rem 1.5rem;
     }
-    
+
     .post-navigation {
         flex-direction: column;
     }
-}/* Admin
+}
+
+/* Admin
  Panel Success/Error Messages */
 .success-message {
     background: #d1fae5;
