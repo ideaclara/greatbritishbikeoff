@@ -105,7 +105,21 @@ Set these in Render dashboard:
 
 - `ADMIN_PASSWORD`: Your secure admin password (required)
 - `SECRET_KEY`: Flask secret key for sessions (required)
+- `DATABASE_URL`: PostgreSQL connection string (automatically set by Render)
+- `INIT_SAMPLE_DATA`: Set to 'true' only if you want sample data (optional)
 - `PORT`: Port number (automatically set by Render)
+
+## 🗄️ Database Setup
+
+### Local Development:
+- Uses SQLite database file: `instance/blog.db`
+- Posts persist between app restarts
+- No sample data added automatically
+
+### Production (Render):
+- Uses PostgreSQL database
+- Must add PostgreSQL addon in Render dashboard
+- Posts persist permanently across deployments
 
 ## 🚴‍♂️ Usage
 

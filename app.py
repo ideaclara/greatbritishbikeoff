@@ -58,54 +58,57 @@ def init_db():
             post_count = BlogPost.query.count()
             print(f"Found {post_count} existing posts in database")
             
-            # Only add sample data if database is completely empty AND we're not in production
-            if post_count == 0 and not os.environ.get('DATABASE_URL'):
-                print("Local development detected - creating sample data...")
-                # Add sample posts
-                sample_posts = [
-                    BlogPost(
-                        title='Cotswolds Cycling Adventure',
-                        excerpt='A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
-                        content='Full blog post content would go here...',
-                        category='cycling',
-                        emoji='🚴‍♂️',
-                        date='2025-01-15'
-                    ),
-                    BlogPost(
-                        title='Best Cake Stops in Yorkshire',
-                        excerpt='Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
-                        content='Full blog post content would go here...',
-                        category='food',
-                        emoji='🍰',
-                        date='2025-01-10'
-                    ),
-                    BlogPost(
-                        title='Essential Gear for British Weather',
-                        excerpt='A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
-                        content='Full blog post content would go here...',
-                        category='gear',
-                        emoji='⚙️',
-                        date='2025-01-08'
-                    ),
-                    BlogPost(
-                        title='Scotland\'s North Coast 500',
-                        excerpt='An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
-                        content='Full blog post content would go here...',
-                        category='travel',
-                        emoji='🗺️',
-                        date='2025-01-05',
-                        youtube_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                        youtube_id='dQw4w9WgXcQ'
-                    )
-                ]
-                
-                for post in sample_posts:
-                    db.session.add(post)
-                
-                db.session.commit()
-                print("Sample data created for local development")
-            elif post_count == 0:
-                print("Production database is empty - ready for your first post!")
+            # Only add sample data if database is completely empty
+            # AND we explicitly want sample data (controlled by environment variable)
+            if post_count == 0:
+                # Only add sample data if INIT_SAMPLE_DATA environment variable is set
+                if os.environ.get('INIT_SAMPLE_DATA') == 'true':
+                    print("INIT_SAMPLE_DATA=true - creating sample data...")
+                    # Add sample posts
+                    sample_posts = [
+                        BlogPost(
+                            title='Cotswolds Cycling Adventure',
+                            excerpt='A perfect weekend exploring the rolling hills and charming villages of the Cotswolds, discovering hidden gems and sampling local delicacies along the way.',
+                            content='Full blog post content would go here...',
+                            category='cycling',
+                            emoji='🚴‍♂️',
+                            date='2025-01-15'
+                        ),
+                        BlogPost(
+                            title='Best Cake Stops in Yorkshire',
+                            excerpt='Discovering the finest tea rooms and bakeries along the Yorkshire Dales cycling routes. From traditional Yorkshire parkin to modern artisan treats.',
+                            content='Full blog post content would go here...',
+                            category='food',
+                            emoji='🍰',
+                            date='2025-01-10'
+                        ),
+                        BlogPost(
+                            title='Essential Gear for British Weather',
+                            excerpt='A comprehensive guide to staying comfortable and safe while cycling through Britain\'s unpredictable weather conditions.',
+                            content='Full blog post content would go here...',
+                            category='gear',
+                            emoji='⚙️',
+                            date='2025-01-08'
+                        ),
+                        BlogPost(
+                            title='Scotland\'s North Coast 500',
+                            excerpt='An epic journey around Scotland\'s stunning coastline, featuring dramatic landscapes, historic castles, and unforgettable Highland hospitality.',
+                            content='Full blog post content would go here...',
+                            category='travel',
+                            emoji='🗺️',
+                            date='2025-01-05',
+                            youtube_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                            youtube_id='dQw4w9WgXcQ'
+                        )
+                    ]
+                    
+                    for post in sample_posts:
+                        db.session.add(post)
+                    
+                    db.session.commit()
+                    print("Sample data created")
+                else:
+                    print("Empty database - ready for your first post!")
             else:
                 print("Existing posts preserved")
                 
