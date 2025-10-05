@@ -174,9 +174,12 @@ body::before {
 /* Grid Layouts */
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .categories-grid {
@@ -204,8 +207,8 @@ body::before {
 
 .card-image {
     width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, #97e7f5, #009dd1);
+    height: 250px;
+    background: linear-gradient(135deg, #4169E1, #FAFAFA);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -420,12 +423,16 @@ Category Cards */
 .youtube-embed-wrapper {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
     overflow: hidden;
     border-radius: 10px 10px 0 0;
 }
 
 .youtube-embed {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: none;
@@ -723,5 +730,18 @@ uTube Embed for Individual Posts */
     .youtube-embed-large {
         padding-bottom: 56.25%;
         margin-bottom: 1.5rem;
+    }
+}/* Blog Gr
+id Responsive Layout */
+@media (max-width: 1024px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .blog-grid {
+        grid-template-columns: 1fr 1fr;
     }
 }
