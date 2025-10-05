@@ -19,17 +19,6 @@
 <section class="post-content">
     <div class="container">
         <article class="post-article">
-            {% if post.youtube_id %}
-            <div class="youtube-embed-large">
-                <iframe 
-                    src="https://www.youtube.com/embed/{{ post.youtube_id }}" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            {% endif %}
-            
             {% if post.strava_activity_id %}
             <div class="strava-embed-container">
                 <div class="strava-embed-placeholder" 
@@ -38,6 +27,17 @@
                      data-style="standard" 
                      data-from-embed="false">
                 </div>
+            </div>
+            {% endif %}
+            
+            {% if post.youtube_id %}
+            <div class="youtube-embed-large">
+                <iframe 
+                    src="https://www.youtube.com/embed/{{ post.youtube_id }}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
             </div>
             {% endif %}
             

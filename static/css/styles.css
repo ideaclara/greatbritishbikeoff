@@ -1,3 +1,4 @@
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,31 +10,6 @@ body {
     line-height: 1.6;
     color: #333;
     background: #FAFAFA;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.03;
-    z-index: -1;
-    background-image:
-        /* Diagonal crosses */
-        linear-gradient(45deg, #fecaca 0%, transparent 20%, transparent 80%, #fecaca 100%),
-        linear-gradient(-45deg, #fecaca 0%, transparent 20%, transparent 80%, #fecaca 100%),
-        /* Vertical stripe */
-        linear-gradient(90deg, transparent 45%, #fecaca 47%, #fecaca 53%, transparent 55%),
-        /* Horizontal stripe */
-        linear-gradient(0deg, transparent 45%, #fecaca 47%, #fecaca 53%, transparent 55%),
-        /* Blue background sections */
-        linear-gradient(45deg, #dbeafe 0%, #dbeafe 25%, transparent 25%, transparent 75%, #dbeafe 75%),
-        linear-gradient(-45deg, #dbeafe 0%, #dbeafe 25%, transparent 25%, transparent 75%, #dbeafe 75%);
-    background-size: 200px 200px, 200px 200px, 100% 100%, 100% 100%, 400px 400px, 400px 400px;
-    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 100px 100px;
 }
 
 .container {
@@ -42,11 +18,15 @@ body::before {
     padding: 0 20px;
 }
 
-/* Header */
-.navbar {
+/* Header & Footer */
+.navbar, footer {
     background: #4169E1;
     color: #FAFAFA;
+    text-align: center;
     padding: 1rem 0;
+}
+
+.navbar {
     position: fixed;
     width: 100%;
     top: 0;
@@ -54,9 +34,6 @@ body::before {
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,36 +51,37 @@ body::before {
 }
 
 .nav-menu a {
-    color: white;
+    color: #FAFAFA;
     text-decoration: none;
-    transition: color 0.3s;
+    font-weight: 500;
+    transition: opacity 0.3s;
 }
 
 .nav-menu a:hover {
-    color: #FAFAFA;
     opacity: 0.8;
 }
 
-/* Hero Section */
-.hero {
+footer {
+    margin-top: 3rem;
+}
+
+/* Hero Sections */
+.hero, .post-hero {
     background: #4169E1;
-    background-size: cover;
-    background-position: center;
+    color: #FAFAFA;
+    text-align: center;
+    position: relative;
+}
+
+.hero {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: #FAFAFA;
-    position: relative;
 }
 
-/* Post Hero Section */
 .post-hero {
-    background: #4169E1;
-    color: #FAFAFA;
     padding: 120px 0 50px;
-    position: relative;
 }
 
 .post-header h1 {
@@ -125,69 +103,9 @@ body::before {
     border-radius: 20px;
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.1;
-    background-image:
-        /* Union Jack pattern for hero */
-        linear-gradient(45deg, #fecaca 0%, transparent 15%, transparent 85%, #fecaca 100%),
-        linear-gradient(-45deg, #fecaca 0%, transparent 15%, transparent 85%, #fecaca 100%),
-        linear-gradient(90deg, transparent 40%, #ffffff 45%, #ffffff 55%, transparent 60%),
-        linear-gradient(0deg, transparent 40%, #ffffff 45%, #ffffff 55%, transparent 60%);
-    background-size: 300px 300px, 300px 300px, 100% 100%, 100% 100%;
-    background-position: 0 0, 0 0, 0 0, 0 0;
-}
-
-.hero-content h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.cta-button {
-    background: #FAFAFA;
-    color: #4169E1;
-    padding: 12px 30px;
-    border: 2px solid #FAFAFA;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.cta-button:hover {
-    background: transparent;
-    color: #FAFAFA;
-    border-color: #FAFAFA;
-}
-
 /* Sections */
 .section {
     padding: 80px 0;
-    position: relative;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-}
-
-.section:nth-child(even) {
-    background: rgba(151, 231, 245, 0.2);
-}
-
-/* Blog Main Section - appears at top */
-.blog-main {
-    padding-top: 120px;
-    /* Account for fixed navbar */
-    padding-bottom: 80px;
     background: rgba(255, 255, 255, 0.95);
 }
 
@@ -195,7 +113,7 @@ body::before {
     text-align: center;
     margin-bottom: 3rem;
     font-size: 2.5rem;
-    color: #01377d;
+    color: #4169E1;
 }
 
 /* Grid Layouts */
@@ -209,13 +127,7 @@ body::before {
     margin-right: auto;
 }
 
-.categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
+/* Cards */
 .card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
@@ -247,13 +159,8 @@ body::before {
 }
 
 .card-content h3 {
-    color: #01377d;
+    color: #4169E1;
     margin-bottom: 0.5rem;
-}
-
-.card-content p {
-    color: #666;
-    margin-bottom: 1rem;
 }
 
 .card-meta {
@@ -261,211 +168,89 @@ body::before {
     justify-content: space-between;
     font-size: 0.9rem;
     color: #888;
+    margin-top: 1rem;
 }
 
-/* Contact Form */
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.contact-form textarea {
-    height: 120px;
-    resize: vertical;
-}
-
-.contact-form button {
-    background: #009dd1;
-    color: white;
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-edit, .btn-danger, .read-more {
     padding: 12px 30px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background 0.3s;
-}
-
-.contact-form button:hover {
-    background: #26b170;
-}
-
-/* Footer */
-footer {
-    background: #01377d;
-    color: white;
-    text-align: center;
-    padding: 2rem 0;
-}
-
-/* Loading State */
-.loading {
-    text-align: center;
-    padding: 2rem;
-    color: #666;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .nav-menu {
-        gap: 1rem;
-    }
-
-    .hero-content h2 {
-        font-size: 2rem;
-    }
-
-    .routes-grid,
-    .food-grid,
-    .blog-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* 
-Category Cards */
-.category-card {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(151, 231, 245, 0.3);
-}
-
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.95);
-}
-
-.category-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.category-card h3 {
-    color: #01377d;
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
-}
-
-.category-card p {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* About Section */
-.about-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.about-content p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    color: #555;
-}
-
-/* Blog Post Cards - Enhanced */
-.blog-grid .card {
-    max-width: 100%;
-}
-
-.blog-grid .card-content {
-    padding: 2rem;
-}
-
-.blog-grid .card-content h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.blog-grid .card-content p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.read-more {
-    color: white;
-    background: #009dd1;
-    padding: 8px 16px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 500;
     transition: all 0.3s;
+    text-decoration: none;
     display: inline-block;
 }
 
-.read-more:hover {
-    background: #26b170;
+.btn-primary, .read-more {
+    background: #4169E1;
     color: white;
+}
+
+.btn-primary:hover, .read-more:hover {
+    background: #3151c7;
     transform: translateY(-1px);
 }
 
-/* Filter Active State */
-.category-card.active {
-    background: linear-gradient(135deg, #97e7f5, #7ed348);
-    transform: translateY(-3px);
+.btn-secondary {
+    background: #6b7280;
+    color: white;
 }
 
-/* Responsive Updates */
-@media (max-width: 768px) {
-    .categories-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .blog-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .about-content p {
-        font-size: 1rem;
-        text-align: left;
-    }
+.btn-secondary:hover {
+    background: #4b5563;
 }
 
-/* YouTube Integration */
-.youtube-embed-wrapper {
+.btn-edit {
+    background: #4169E1;
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.read-more {
+    background: #26b170;
+    margin-top: 1rem;
+}
+
+/* Embed Styles */
+.youtube-embed-wrapper, .strava-embed-wrapper {
     position: relative;
     width: 100%;
+    overflow: hidden;
+}
+
+.youtube-embed-wrapper {
     height: 0;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    overflow: hidden;
     border-radius: 10px 10px 0 0;
 }
 
-/* When both YouTube and Strava are present */
-.card .youtube-embed-wrapper + .strava-embed-wrapper {
-    border-radius: 0;
-    border-top: none;
+.strava-embed-wrapper {
+    height: 400px; /* Increased height to show full map */
+    background: rgba(252, 76, 2, 0.05);
+    border-left: 1px solid rgba(252, 76, 2, 0.2);
+    border-right: 1px solid rgba(252, 76, 2, 0.2);
+    border-bottom: 1px solid rgba(252, 76, 2, 0.2);
 }
 
-/* When only Strava is present (no YouTube above it) */
+/* Strava first, YouTube second ordering */
 .card .strava-embed-wrapper:first-child {
     border-radius: 10px 10px 0 0;
     border-top: 1px solid rgba(252, 76, 2, 0.2);
+}
+
+.card .strava-embed-wrapper + .youtube-embed-wrapper {
+    border-radius: 0;
+    border-top: none;
 }
 
 .youtube-embed {
@@ -478,291 +263,18 @@ Category Cards */
     border-radius: 10px 10px 0 0;
 }
 
-/* Strava Integration */
-.strava-embed-wrapper {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    background: rgba(252, 76, 2, 0.05);
-    border-left: 1px solid rgba(252, 76, 2, 0.2);
-    border-right: 1px solid rgba(252, 76, 2, 0.2);
-    border-bottom: 1px solid rgba(252, 76, 2, 0.2);
-}
-
-.strava-embed-wrapper .strava-embed-placeholder {
+.strava-embed-placeholder {
     width: 100%;
     height: 100%;
-    min-height: 250px;
+    min-height: 400px; /* Ensure full map visibility */
 }
 
-.youtube-thumbnail {
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.5rem;
-    color: #FAFAFA;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s;
-    background: rgba(65, 105, 225, 0.8);
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.youtube-link {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
-}
-
-.youtube-link a {
-    color: #dc2626;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.youtube-link a:hover {
-    text-decoration: underline;
-}
-
-/* Local/Draft Posts */
-.local-post {
-    border: 2px dashed #A349A4;
-    background: rgba(163, 73, 164, 0.1);
-}
-
-.local-badge {
-    background: #fbbf24;
-    color: #92400e;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-/* Admin Link */
-.admin-link {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #014DAC;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s;
-    z-index: 1000;
-}
-
-.admin-link:hover {
-    background: #A349A4;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    color: white;
-}
-
-/* Responsive YouTube */
-@media (max-width: 768px) {
-    .play-button {
-        font-size: 2rem;
-    }
-
-    .admin-link {
-        bottom: 10px;
-        right: 10px;
-        padding: 10px 16px;
-        font-size: 0.9rem;
-    }
-}
-
-/* Pytho
-n Flask Template Styles */
-
-/* Category Filter Buttons */
-.categories-filter {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    background: rgba(255, 255, 255, 0.9);
-    color: #01377d;
-    padding: 8px 16px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-}
-
-.filter-btn:hover {
-    background: #7ed348;
-    color: white;
-    transform: translateY(-2px);
-}
-
-.filter-btn.active {
-    background: #009dd1;
-    color: white;
-    border-color: #7ed348;
-}
-
-/* Post Hero Section */
-.post-hero {
-    background: linear-gradient(rgba(1, 77, 172, 0.85), rgba(163, 73, 164, 0.85));
-    color: white;
-    padding: 150px 0 80px;
-    text-align: center;
-}
-
-.post-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.post-meta {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    font-size: 1.1rem;
-}
-
-/* Post Content */
-.post-content {
-    padding: 80px 0;
-}
-
-.post-article {
-    max-width: 800px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 3rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.youtube-embed {
-    margin-bottom: 2rem;
-}
-
-.youtube-embed iframe {
-    border-radius: 10px;
-}
-
-.post-excerpt {
-    font-size: 1.2rem;
-    font-style: italic;
-    color: #666;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.post-body {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.post-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 3rem;
-    gap: 1rem;
-}
-
-.btn-secondary {
-    background: #6b7280;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.btn-secondary:hover {
-    background: #4b5563;
-    color: white;
-}
-
-/* No Posts Message */
-.no-posts {
-    text-align: center;
-    padding: 3rem;
-    color: #666;
-    font-style: italic;
-}
-
-/* Responsive Updates */
-@media (max-width: 768px) {
-    .categories-filter {
-        gap: 0.5rem;
-    }
-
-    .filter-btn {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
-
-    .post-header h1 {
-        font-size: 2rem;
-    }
-
-    .post-meta {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .post-article {
-        padding: 2rem 1.5rem;
-    }
-
-    .post-navigation {
-        flex-direction: column;
-    }
-}
-
-/* Admin
- Panel Success/Error Messages */
-.success-message {
-    background: #d1fae5;
-    color: #065f46;
-    padding: 0.75rem 1rem;
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
-    border: 1px solid #a7f3d0;
-    font-weight: 500;
-}
-
-.error-message {
-    background: #fee2e2;
-    color: #dc2626;
-    padding: 0.75rem 1rem;
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
-    border: 1px solid #fecaca;
-    font-weight: 500;
-}/* Yo
-uTube Embed for Individual Posts */
+/* Large Embeds for Individual Posts */
 .youtube-embed-large {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     margin-bottom: 2rem;
     border-radius: 10px;
     overflow: hidden;
@@ -778,7 +290,6 @@ uTube Embed for Individual Posts */
     border-radius: 10px;
 }
 
-/* Strava Embed for Individual Posts */
 .strava-embed-container {
     margin: 2rem 0;
     padding: 1rem;
@@ -787,60 +298,12 @@ uTube Embed for Individual Posts */
     border: 1px solid rgba(252, 76, 2, 0.2);
 }
 
-.strava-embed-placeholder {
-    min-height: 400px;
+.strava-embed-container .strava-embed-placeholder {
+    min-height: 500px; /* Even larger for individual posts */
     border-radius: 8px;
 }
 
-/* Responsive YouTube Embeds */
-@media (max-width: 768px) {
-    .youtube-embed-wrapper {
-        height: 180px;
-    }
-    
-    .youtube-embed-large {
-        padding-bottom: 56.25%;
-        margin-bottom: 1.5rem;
-    }
-    
-    .strava-embed-container {
-        margin: 1.5rem 0;
-        padding: 0.75rem;
-    }
-    
-    .strava-embed-placeholder {
-        min-height: 300px;
-    }
-}/* Blog Gr
-id Responsive Layout */
-@media (max-width: 1024px) {
-    .blog-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-    }
-}
-
-@media (min-width: 1025px) {
-    .blog-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* Footer */
-footer {
-    background: #4169E1;
-    color: #FAFAFA;
-    text-align: center;
-    padding: 2rem 0;
-    margin-top: 3rem;
-}
-
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-/* Post Content Styles */
+/* Post Content */
 .post-content {
     padding: 2rem 0;
     background: rgba(255, 255, 255, 0.95);
@@ -881,7 +344,182 @@ footer p {
     margin-top: 3rem;
 }
 
+/* Admin Styles */
+.admin-panel, .admin-edit {
+    padding: 120px 0 50px;
+    min-height: 100vh;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.admin-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.create-post-section, .posts-list-section, .edit-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #4169E1;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.post-item {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-info h4 {
+    margin: 0 0 0.5rem 0;
+    color: #4169E1;
+}
+
+.post-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.post-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.youtube-indicator, .strava-indicator {
+    font-weight: 500;
+}
+
+.youtube-indicator {
+    color: #dc2626;
+}
+
+.strava-indicator {
+    color: #fc4c02;
+}
+
+.success-message {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.no-posts {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    
+    .admin-content {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
+    .youtube-embed-wrapper {
+        height: 180px;
+        padding-bottom: 0;
+    }
+    
+    .strava-embed-wrapper {
+        height: 300px;
+    }
+    
+    .strava-embed-placeholder {
+        min-height: 300px;
+    }
+    
+    .strava-embed-container .strava-embed-placeholder {
+        min-height: 400px;
+    }
+    
+    .youtube-embed-large {
+        padding-bottom: 56.25%;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .form-actions, .post-navigation {
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .post-meta {
         flex-direction: column;
         gap: 0.5rem;
@@ -893,10 +531,5 @@ footer p {
     
     .post-article {
         padding: 1.5rem;
-    }
-    
-    .post-navigation {
-        flex-direction: column;
-        align-items: center;
     }
 }

@@ -8,6 +8,17 @@
         <div class="blog-grid">
             {% for post in posts %}
             <div class="card">
+                {% if post.strava_activity_id %}
+                <div class="strava-embed-wrapper">
+                    <div class="strava-embed-placeholder" 
+                         data-embed-type="activity" 
+                         data-embed-id="{{ post.strava_activity_id }}" 
+                         data-style="standard" 
+                         data-from-embed="false">
+                    </div>
+                </div>
+                {% endif %}
+                
                 {% if post.youtube_id %}
                 <div class="youtube-embed-wrapper">
                     <iframe 
@@ -20,18 +31,7 @@
                 </div>
                 {% endif %}
                 
-                {% if post.strava_activity_id %}
-                <div class="strava-embed-wrapper">
-                    <div class="strava-embed-placeholder" 
-                         data-embed-type="activity" 
-                         data-embed-id="{{ post.strava_activity_id }}" 
-                         data-style="standard" 
-                         data-from-embed="false">
-                    </div>
-                </div>
-                {% endif %}
-                
-                {% if not post.youtube_id and not post.strava_activity_id %}
+                {% if not post.strava_activity_id and not post.youtube_id %}
                 <div class="card-image">{{ post.emoji }}</div>
                 {% endif %}
                 
