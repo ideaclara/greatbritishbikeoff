@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import inspect
 import os
 import json
 from datetime import datetime
@@ -7,6 +8,13 @@ import re
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
+
+# Build number for tracking deployments
+BUILD_NUMBER = os.environ.get('BUILD_NUMBER', f"dev-{datetime.now().strftime('%Y%m%d-%H%M')}")
+
+@app.context_processor
+def inject_build_number():
+    return {'build_number': BUILD_NUMBER}
 
 # Database configuration
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
@@ -50,19 +58,36 @@ def init_db():
     """Initialize database with sample data if empty"""
     try:
         with app.app_context():
-            # Create all tables
-            db.create_all()
-            print("Database tables created successfully")
+            # Check if tables exist first
+            inspector = inspect(db.engine)
+            existing_tables = inspector.get_table_names()
+            
+            if 'blog_post' not in existing_tables:
+                print("Creating database tables for the first time...")
+                db.create_all()
+                print("Database tables created successfully")
+            else:
+                print("Database tables already exist")
             
             # Check if we already have posts
-            post_count = BlogPost.query.count()
-            print(f"Found {post_count} existing posts in database")
+            try:
+                post_count = BlogPost.query.count()
+                print(f"Found {post_count} existing posts in database")
+            except Exception as e:
+                print(f"Error counting posts: {e}")
+                # If there's an error, the table might not exist properly
+                db.create_all()
+                post_count = 0
+                print("Recreated tables and reset post count")
             
             # Only add sample data if database is completely empty
             # AND we explicitly want sample data (controlled by environment variable)
             if post_count == 0:
-                # Only add sample data if INIT_SAMPLE_DATA environment variable is set
-                if os.environ.get('INIT_SAMPLE_DATA') == 'true':
+                # Check if this is production (has DATABASE_URL) and skip sample data
+                if os.environ.get('DATABASE_URL'):
+                    print("Production database detected - no sample data added")
+                    print("Ready for your first blog post via admin panel!")
+                elif os.environ.get('INIT_SAMPLE_DATA') == 'true':
                     print("INIT_SAMPLE_DATA=true - creating sample data...")
                     # Add sample posts
                     sample_posts = [
@@ -106,11 +131,11 @@ def init_db():
                         db.session.add(post)
                     
                     db.session.commit()
-                    print("Sample data created")
+                    print("Sample data created for development")
                 else:
-                    print("Empty database - ready for your first post!")
+                    print("Local development - no sample data (set INIT_SAMPLE_DATA=true if needed)")
             else:
-                print("Existing posts preserved")
+                print("Existing posts preserved - database has content")
                 
     except Exception as e:
         print(f"Error initializing database: {e}")

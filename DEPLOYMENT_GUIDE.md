@@ -19,15 +19,21 @@ Your blog posts reset because you're not using a persistent database in producti
 ### Step 2: Connect Database to Web Service
 1. **Go to your Web Service** in Render dashboard
 2. **Click "Environment"** tab
-3. **Add Environment Variable**:
+3. **Render should automatically add**:
    - **Key**: `DATABASE_URL`
-   - **Value**: Copy from your PostgreSQL database dashboard
-   - (Should look like: `postgresql://user:pass@host:port/dbname`)
+   - **Value**: `postgresql://user:pass@host:port/dbname`
+   - (If not automatic, copy from PostgreSQL database dashboard)
 
-### Step 3: Redeploy
+### Step 3: Set Build Number (Optional)
+Add environment variable:
+- **Key**: `BUILD_NUMBER`
+- **Value**: `v1.0` (or any version you want)
+
+### Step 4: Redeploy
 1. **Go to "Deploys"** tab
 2. **Click "Trigger Deploy"**
 3. **Wait for deployment** to complete
+4. **Check logs** - should show "Production database detected"
 
 ## 🎯 What This Fixes
 
