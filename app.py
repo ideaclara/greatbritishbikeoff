@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import inspect
+from sqlalchemy import inspect, text
 import os
 import json
 from datetime import datetime
@@ -78,6 +78,26 @@ def init_db():
                 print("Database tables created successfully")
             else:
                 print("Database tables already exist")
+                # Check if we need to add missing columns
+                try:
+                    columns = inspector.get_columns('blog_post')
+                    column_names = [col['name'] for col in columns]
+                    
+                    # Check for missing strava_activity_id column
+                    if 'strava_activity_id' not in column_names:
+                        print("Adding missing strava_activity_id column...")
+                        with db.engine.connect() as conn:
+                            conn.execute(text('ALTER TABLE blog_post ADD COLUMN strava_activity_id VARCHAR(50)'))
+                            conn.commit()
+                        print("Added strava_activity_id column successfully")
+                    
+                except Exception as e:
+                    print(f"Error checking/adding columns: {e}")
+                    # If there's a major schema issue, recreate tables
+                    print("Recreating tables due to schema mismatch...")
+                    db.drop_all()
+                    db.create_all()
+                    print("Tables recreated successfully")
             
             # Check if we already have posts
             try:
