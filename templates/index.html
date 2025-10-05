@@ -18,7 +18,9 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-                {% elif post.strava_activity_id %}
+                {% endif %}
+                
+                {% if post.strava_activity_id %}
                 <div class="strava-embed-wrapper">
                     <div class="strava-embed-placeholder" 
                          data-embed-type="activity" 
@@ -27,7 +29,9 @@
                          data-from-embed="false">
                     </div>
                 </div>
-                {% else %}
+                {% endif %}
+                
+                {% if not post.youtube_id and not post.strava_activity_id %}
                 <div class="card-image">{{ post.emoji }}</div>
                 {% endif %}
                 

@@ -98,6 +98,33 @@ body::before {
     position: relative;
 }
 
+/* Post Hero Section */
+.post-hero {
+    background: #4169E1;
+    color: #FAFAFA;
+    padding: 120px 0 50px;
+    position: relative;
+}
+
+.post-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.post-meta span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
 .hero::before {
     content: '';
     position: absolute;
@@ -208,7 +235,7 @@ body::before {
 .card-image {
     width: 100%;
     height: 250px;
-    background: linear-gradient(135deg, #4169E1, #FAFAFA);
+    background: #4169E1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -429,6 +456,18 @@ Category Cards */
     border-radius: 10px 10px 0 0;
 }
 
+/* When both YouTube and Strava are present */
+.card .youtube-embed-wrapper + .strava-embed-wrapper {
+    border-radius: 0;
+    border-top: none;
+}
+
+/* When only Strava is present (no YouTube above it) */
+.card .strava-embed-wrapper:first-child {
+    border-radius: 10px 10px 0 0;
+    border-top: 1px solid rgba(252, 76, 2, 0.2);
+}
+
 .youtube-embed {
     position: absolute;
     top: 0;
@@ -445,9 +484,10 @@ Category Cards */
     width: 100%;
     height: 250px;
     overflow: hidden;
-    border-radius: 10px 10px 0 0;
     background: rgba(252, 76, 2, 0.05);
-    border: 1px solid rgba(252, 76, 2, 0.2);
+    border-left: 1px solid rgba(252, 76, 2, 0.2);
+    border-right: 1px solid rgba(252, 76, 2, 0.2);
+    border-bottom: 1px solid rgba(252, 76, 2, 0.2);
 }
 
 .strava-embed-wrapper .strava-embed-placeholder {
@@ -783,5 +823,80 @@ id Responsive Layout */
 @media (min-width: 1025px) {
     .blog-grid {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Footer */
+footer {
+    background: #4169E1;
+    color: #FAFAFA;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Post Content Styles */
+.post-content {
+    padding: 2rem 0;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.post-article {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-text {
+    margin-top: 2rem;
+}
+
+.post-excerpt {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.post-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.post-navigation {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+    .post-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .post-header h1 {
+        font-size: 2rem;
+    }
+    
+    .post-article {
+        padding: 1.5rem;
+    }
+    
+    .post-navigation {
+        flex-direction: column;
+        align-items: center;
     }
 }
