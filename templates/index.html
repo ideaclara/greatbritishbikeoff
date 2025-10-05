@@ -9,11 +9,15 @@
             {% for post in posts %}
             <div class="card">
                 {% if post.youtube_id %}
-                <a href="{{ post.youtube_url }}" target="_blank" class="youtube-link-wrapper">
-                    <div class="card-image youtube-thumbnail" style="background-image: url('https://img.youtube.com/vi/{{ post.youtube_id }}/maxresdefault.jpg'); background-size: cover; background-position: center;">
-                        <div class="play-button">▶️</div>
-                    </div>
-                </a>
+                <div class="youtube-embed-wrapper">
+                    <iframe 
+                        class="youtube-embed" 
+                        src="https://www.youtube.com/embed/{{ post.youtube_id }}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
                 {% else %}
                 <div class="card-image">{{ post.emoji }}</div>
                 {% endif %}
@@ -22,9 +26,7 @@
                     <h3>{{ post.title }}</h3>
                     <p>{{ post.excerpt }}</p>
                     
-                    {% if post.youtube_url %}
-                    <p class="youtube-link">📹 <a href="{{ post.youtube_url }}" target="_blank">Watch on YouTube</a></p>
-                    {% endif %}
+
                     
                     <a href="{{ url_for('view_post', post_id=post.id) }}" class="read-more">Read More →</a>
                     
