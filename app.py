@@ -46,6 +46,7 @@ class BlogPost(db.Model):
     date = db.Column(db.String(20), nullable=False)
     youtube_url = db.Column(db.String(500))
     youtube_id = db.Column(db.String(50))
+    strava_activity_id = db.Column(db.String(50))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     def to_dict(self):
@@ -58,7 +59,8 @@ class BlogPost(db.Model):
             'emoji': self.emoji,
             'date': self.date,
             'youtube_url': self.youtube_url,
-            'youtube_id': self.youtube_id
+            'youtube_id': self.youtube_id,
+            'strava_activity_id': self.strava_activity_id
         }
 
 # Initialize database and create sample data
@@ -240,7 +242,8 @@ def create_post():
         emoji=data.get('emoji', '📝'),
         date=datetime.now().strftime('%Y-%m-%d'),
         youtube_url=data.get('youtube_url'),
-        youtube_id=youtube_id
+        youtube_id=youtube_id,
+        strava_activity_id=data.get('strava_activity_id')
     )
     
     # Save to database
@@ -287,6 +290,7 @@ def update_post(post_id):
     post.emoji = data.get('emoji', '📝')
     post.youtube_url = data.get('youtube_url')
     post.youtube_id = youtube_id
+    post.strava_activity_id = data.get('strava_activity_id')
     
     # Save changes
     db.session.commit()
