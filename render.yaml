@@ -3,10 +3,10 @@ services:
     name: great-british-bike-off
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.18
+        value: 3.11.9
       - key: ADMIN_PASSWORD
         sync: false
       - key: SECRET_KEY

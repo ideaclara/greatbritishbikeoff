@@ -18,9 +18,17 @@ def inject_build_number():
 
 # Database configuration
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
-# Fix for PostgreSQL URL format (Render uses postgresql://, SQLAlchemy expects postgresql+psycopg2://)
+# Fix for PostgreSQL URL format - try newer psycopg first, fallback to psycopg2
 if database_url.startswith('postgresql://'):
-    database_url = database_url.replace('postgresql://', 'postgresql+psycopg2://', 1)
+    # Try newer psycopg driver first
+    try:
+        import psycopg
+        database_url = database_url.replace('postgresql://', 'postgresql+psycopg://', 1)
+        print("Using psycopg (newer) driver for PostgreSQL")
+    except ImportError:
+        # Fallback to psycopg2
+        database_url = database_url.replace('postgresql://', 'postgresql+psycopg2://', 1)
+        print("Using psycopg2 (legacy) driver for PostgreSQL")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
