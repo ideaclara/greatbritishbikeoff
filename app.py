@@ -254,6 +254,50 @@ def create_post():
         posts_dict = [post.to_dict() for post in posts]
         return render_template('admin_panel.html', posts=posts_dict, success='Post created successfully!')
 
+@app.route('/admin/edit/<int:post_id>')
+def edit_post(post_id):
+    """Show edit form for blog post"""
+    if not session.get('admin_authenticated'):
+        return redirect(url_for('admin_login'))
+    
+    post = BlogPost.query.get_or_404(post_id)
+    return render_template('admin_edit.html', post=post.to_dict())
+
+@app.route('/admin/update/<int:post_id>', methods=['POST'])
+def update_post(post_id):
+    """Update blog post"""
+    if not session.get('admin_authenticated'):
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    post = BlogPost.query.get_or_404(post_id)
+    data = request.get_json() if request.is_json else request.form
+    
+    # Validate required fields
+    if not all([data.get('title'), data.get('excerpt'), data.get('content'), data.get('category')]):
+        return render_template('admin_edit.html', post=post.to_dict(), error='All fields are required')
+    
+    # Extract YouTube ID if URL provided
+    youtube_id = extract_youtube_id(data.get('youtube_url'))
+    
+    # Update post fields
+    post.title = data.get('title')
+    post.excerpt = data.get('excerpt')
+    post.content = data.get('content')
+    post.category = data.get('category')
+    post.emoji = data.get('emoji', '📝')
+    post.youtube_url = data.get('youtube_url')
+    post.youtube_id = youtube_id
+    
+    # Save changes
+    db.session.commit()
+    
+    if request.is_json:
+        return jsonify({'success': True, 'post': post.to_dict()})
+    else:
+        posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+        posts_dict = [post.to_dict() for post in posts]
+        return render_template('admin_panel.html', posts=posts_dict, success='Post updated successfully!')
+
 @app.route('/admin/delete/<int:post_id>', methods=['POST'])
 def delete_post(post_id):
     """Delete blog post"""
