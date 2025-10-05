@@ -30,6 +30,17 @@
             </div>
             {% endif %}
             
+            {% if post.strava_activity_id %}
+            <div class="strava-embed-container">
+                <div class="strava-embed-placeholder" 
+                     data-embed-type="activity" 
+                     data-embed-id="{{ post.strava_activity_id }}" 
+                     data-style="standard" 
+                     data-from-embed="false">
+                </div>
+            </div>
+            {% endif %}
+            
             <div class="post-text">
                 <p class="post-excerpt">{{ post.excerpt }}</p>
                 <div class="post-body">

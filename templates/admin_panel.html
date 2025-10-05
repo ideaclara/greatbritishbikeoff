@@ -61,7 +61,14 @@
                         <input type="url" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=...">
                     </div>
                     
-                    <button type="submit" class="btn-primary">Create Post</button>
+                    <div class="form-group">
+                        <label for="strava_activity_id">Strava Activity ID (optional)</label>
+                        <input type="text" id="strava_activity_id" name="strava_activity_id" placeholder="15038325649 or https://www.strava.com/activities/15038325649">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Create Post</button>
+                    </div>
                 </form>
             </div>
             
@@ -75,6 +82,9 @@
                             <p>{{ post.category.title() }} • {{ post.date }}</p>
                             {% if post.youtube_id %}
                             <p class="youtube-indicator">📹 Includes YouTube video</p>
+                            {% endif %}
+                            {% if post.strava_activity_id %}
+                            <p class="strava-indicator">🚴‍♂️ Includes Strava activity</p>
                             {% endif %}
                         </div>
                         <div class="post-actions">
@@ -176,6 +186,34 @@
 .youtube-indicator {
     color: #dc2626 !important;
     font-weight: 500;
+}
+
+.strava-indicator {
+    color: #fc4c02 !important;
+    font-weight: 500;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background: #4169E1;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: #3151c7;
 }
 
 .post-actions {

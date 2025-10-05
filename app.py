@@ -181,6 +181,20 @@ def extract_youtube_id(url):
     match = re.search(pattern, url)
     return match.group(1) if match else None
 
+def extract_strava_id(input_str):
+    """Extract Strava activity ID from URL or return the ID if it's already just a number"""
+    if not input_str:
+        return None
+    
+    # If it's already just a number, return it
+    if input_str.strip().isdigit():
+        return input_str.strip()
+    
+    # Extract from Strava URL
+    pattern = r'strava\.com\/activities\/(\d+)'
+    match = re.search(pattern, input_str)
+    return match.group(1) if match else None
+
 def get_admin_password():
     """Get admin password from environment or use default"""
     return os.environ.get('ADMIN_PASSWORD', 'bikeoff2025')
@@ -253,6 +267,9 @@ def create_post():
     # Extract YouTube ID if URL provided
     youtube_id = extract_youtube_id(data.get('youtube_url'))
     
+    # Extract Strava ID if provided
+    strava_id = extract_strava_id(data.get('strava_activity_id'))
+    
     # Create new blog post
     new_post = BlogPost(
         title=data.get('title'),
@@ -263,7 +280,7 @@ def create_post():
         date=datetime.now().strftime('%Y-%m-%d'),
         youtube_url=data.get('youtube_url'),
         youtube_id=youtube_id,
-        strava_activity_id=data.get('strava_activity_id')
+        strava_activity_id=strava_id
     )
     
     # Save to database
@@ -302,6 +319,9 @@ def update_post(post_id):
     # Extract YouTube ID if URL provided
     youtube_id = extract_youtube_id(data.get('youtube_url'))
     
+    # Extract Strava ID if provided
+    strava_id = extract_strava_id(data.get('strava_activity_id'))
+    
     # Update post fields
     post.title = data.get('title')
     post.excerpt = data.get('excerpt')
@@ -310,7 +330,7 @@ def update_post(post_id):
     post.emoji = data.get('emoji', '📝')
     post.youtube_url = data.get('youtube_url')
     post.youtube_id = youtube_id
-    post.strava_activity_id = data.get('strava_activity_id')
+    post.strava_activity_id = strava_id
     
     # Save changes
     db.session.commit()

@@ -54,6 +54,11 @@
                     <input type="url" id="youtube_url" name="youtube_url" value="{{ post.youtube_url or '' }}" placeholder="https://www.youtube.com/watch?v=...">
                 </div>
                 
+                <div class="form-group">
+                    <label for="strava_activity_id">Strava Activity ID (optional)</label>
+                    <input type="text" id="strava_activity_id" name="strava_activity_id" value="{{ post.strava_activity_id or '' }}" placeholder="15038325649 or https://www.strava.com/activities/15038325649">
+                </div>
+                
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">Update Post</button>
                     <a href="{{ url_for('admin_panel') }}" class="btn-secondary">Cancel</a>
