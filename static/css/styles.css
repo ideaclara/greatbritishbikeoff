@@ -235,7 +235,7 @@ footer {
 }
 
 .strava-embed-wrapper {
-    height: 400px; /* Increased height to show full map */
+    height: 600px; /* Increased height to show full Strava widget */
     background: rgba(252, 76, 2, 0.05);
     border-left: 1px solid rgba(252, 76, 2, 0.2);
     border-right: 1px solid rgba(252, 76, 2, 0.2);
@@ -266,7 +266,7 @@ footer {
 .strava-embed-placeholder {
     width: 100%;
     height: 100%;
-    min-height: 400px; /* Ensure full map visibility */
+    min-height: 600px; /* Ensure full Strava widget visibility */
 }
 
 /* Large Embeds for Individual Posts */
@@ -292,14 +292,11 @@ footer {
 
 .strava-embed-container {
     margin: 2rem 0;
-    padding: 1rem;
-    background: rgba(252, 76, 2, 0.05);
     border-radius: 10px;
-    border: 1px solid rgba(252, 76, 2, 0.2);
 }
 
 .strava-embed-container .strava-embed-placeholder {
-    min-height: 500px; /* Even larger for individual posts */
+    min-height: 700px; /* Even larger for individual posts to show full widget */
     border-radius: 8px;
 }
 
@@ -490,15 +487,15 @@ footer {
     }
     
     .strava-embed-wrapper {
-        height: 300px;
+        height: 500px; /* Increased for mobile to show full widget */
     }
     
     .strava-embed-placeholder {
-        min-height: 300px;
+        min-height: 500px; /* Increased for mobile */
     }
     
     .strava-embed-container .strava-embed-placeholder {
-        min-height: 400px;
+        min-height: 600px; /* Increased for mobile individual posts */
     }
     
     .youtube-embed-large {
